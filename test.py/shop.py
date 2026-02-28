@@ -1,28 +1,28 @@
-# 商品リストと価格
-items = {"りんご": 100, "みかん": 50, "ぶどう": 80}
+# 商品データ
+items_dict = {"1": "りんご", "2": "みかん", "3": "ぶどう"}
+prices = {"りんご": 100, "みかん": 50, "ぶどう": 80}
 
-print("-----いらっしゃいませ！商品一覧-----")
-for name, price in items.items():
-    print(f"{name}: {price}円")
+print("----- いらっしゃいませ！ -----")
+for num, name in items_dict.items():
+    print(f"{num}: {name} ({prices[name]}円)")
 
-# 商品を選ぶ
-choice = input("何を買いますか？（りんご、みかん、ぶどう）：").strip() # .strip()を入れると前後の余計な空白を消せます
+# ① strip()で空白対策、② 番号選択式
+num_choice = input("商品番号を入力してください：").strip()
 
-if choice in items:
-    # --- 商品があった場合の処理（ここからインデントを下げる） ---
-    price = items[choice]
-    count = int(input(f"{choice}は何個買いますか？："))
+if num_choice in items_dict:
+    choice = items_dict[num_choice]
+    price = prices[choice]
+    
+    # int()で文字を計算可能な数字に変換
+    count = int(input(f"{choice}は何個買いますか？：").strip())
     
     total = price * count
     
-    # 2000円以上なら割引
     if total >= 2000:
-        print("2000円以上なので10%割引になります！")
-        total = total * 0.9  # priceではなくtotalにかける
-    
-    print(f"合計金額は {int(total)} 円です。毎度あり！")
-    # ----------------------------------------------------
-else:
-    # 商品リストに名前がなかった場合
-    print("申し訳ありません、その商品は置いていません。")
+        print("2000円以上なので10%割引！")
+        total *= 0.9
 
+    # f-stringsでスッキリ表示
+    print(f"{choice} {count}個で、合計金額は {int(total)} 円です。")
+else:
+    print("正しい番号を入力してください。")
