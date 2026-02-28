@@ -3,6 +3,7 @@ items_dict = {"1": "りんご", "2": "みかん", "3": "ぶどう"}
 prices = {"りんご": 100, "みかん": 50, "ぶどう": 80}
 
 print("----- いらっしゃいませ！ -----")
+# .items()を使って、番号(num)と商品名(name)をセットで取り出して表示
 for num, name in items_dict.items():
     print(f"{num}: {name} ({prices[name]}円)")
 
