@@ -1,6 +1,21 @@
-# 商品データ
-items_dict = {"1": "りんご", "2": "みかん", "3": "ぶどう"}
-prices = {"りんご": 100, "みかん": 50, "ぶどう": 80}
+import json
+import os
+
+#保村先のファイル名
+FILE_NAME = "shop_data.json"
+
+
+# --- 1. ロード機能（お店を開く準備） ---
+if os.path.exists(FILE_NAME):
+    with open(FILE_NAME, "r", encoding="utf-8") as f:
+        save_data = json.load(f)
+        items_dict = save_data["items"]
+        prices = save_data["prices"]
+
+else:
+    # データがないときは初期値を用意する
+    items_dict = {"1": "りんご", "2": "みかん", "3": "ぶどう"}
+    prices = {"りんご": 100, "みかん": 50, "ぶどう": 80}
 
 print("----商品管理システム---- ")
 print("1: お買い物をする")
@@ -45,5 +60,17 @@ elif mode == "2":
     print("\n--- 更新後の商品一覧 ---")
     for num, name in items_dict.items():
         print(f"{num}: {name} ({prices[name]}円)")
+
+# --- 2. セーブ機能（新商品をノートに書き留める） ---        
+    save_data = {"items": items_dict, "prices": prices}
+    with open(FILE_NAME, "w", encoding="utf-8") as f:
+     json.dump(save_data, f, ensure_ascii=False, indent=2)
+
+    print(f"☑️{new_name} が登録され、ファイルの保存されました！")
+
+    print("\n--- 更新後の商品一覧 ---")
+    for num, name in items_dict.items():
+     print(f"{num}: {name} ({prices[name]}円)")
+    
 else:
     print("1か2を選択して下さい。")
